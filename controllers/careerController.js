@@ -36,6 +36,10 @@ exports.getCareerById = async (req, res) => {
 
 exports.recommendCareers = async (req, res) => {
   try {
+    const allCareers = await Career.find();
+    console.log("Total Careers in Database:", allCareers.length);
+    console.log("Sample Career:", allCareers[0]);
+    
     const { assessmentId } = req.body;
     
     // Get the assessment
