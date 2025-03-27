@@ -67,3 +67,37 @@ exports.getAssessmentById = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
+exports.getAssessmentByUserId = async (req, res) => {
+  try {
+    // Find all assessments for the specific user
+    const assessments = await Assessment.find({ user: req.user.id }).sort({ createdAt: -1 });
+    
+    // Check if any assessments exist
+    if (!assessments || assessments.length === 0) {
+      return res.status(404).json({ msg: 'No assessments found for this user' });
+    }
+    
+    // Extract the last 2 assessments
+    const lastTwoAssessments = assessments.slice(0, 2);
+    
+    // Extract recommended careers from the last 2 assessments
+    const lastTwoRecommendedCareers = lastTwoAssessments.flatMap(assessment => 
+      assessment.recommendedCareers
+    ).slice(0, 2);
+
+    // Return both full assessments and the last 2 recommended careers
+    res.json({
+      assessments: assessments,
+      lastTwoRecommendedCareers: lastTwoRecommendedCareers
+    });
+  } catch (err) {
+    console.error(err.message);
+    
+    if (err.kind === 'ObjectId') {
+      return res.status(404).json({ msg: 'Invalid user ID' });
+    }
+    
+    res.status(500).send('Server error');
+  }
+};

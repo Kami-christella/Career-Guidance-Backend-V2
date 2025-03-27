@@ -13,7 +13,7 @@ router.post('/login', userController.login);
 router.post('/assessments', authMiddleware, assessmentController.submitAssessment);
 router.get('/assessments', authMiddleware, assessmentController.getUserAssessments);
 router.get('/assessments/:id', authMiddleware, assessmentController.getAssessmentById);
-
+router.get('/assessments/user/:userId', authMiddleware, assessmentController.getAssessmentByUserId);
 // Career routes
 router.get('/careers', careerController.getAllCareers);
 router.get('/careers/:id', careerController.getCareerById);
