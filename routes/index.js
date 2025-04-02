@@ -8,8 +8,8 @@ const contactController =require('../controllers/contactController')
 // Auth routes
 router.post('/register', userController.register);
 router.post('/login', userController.login);
-router.get('/count', userController.getUserCount);
-router.get('/', userController.getAllUsers);
+router.get('/count',authMiddleware, userController.getUserCount);
+router.get('/', authMiddleware, userController.getAllUsers);
 
 router.post('/contacts/createContact', contactController.createContact);
 
