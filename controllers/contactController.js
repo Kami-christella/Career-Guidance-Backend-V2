@@ -66,3 +66,33 @@ export const updateContactById= async(req,res)=>{
       res.status(500).json({ success: false, message: "server Error", error: error.message});
    }
 }
+
+export const getContactsCount = async(req, res) => {
+   try {
+       // Get total count of all contacts
+       const totalCount = await Contact.countDocuments();
+       
+       // Optional: Get counts by status
+       const newCount = await Contact.countDocuments({ status: 'new' });
+       const readCount = await Contact.countDocuments({ status: 'read' });
+       const inProgressCount = await Contact.countDocuments({ status: 'in-progress' });
+       const completedCount = await Contact.countDocuments({ status: 'completed' });
+       
+       res.status(200).json({
+           success: true,
+           counts: {
+               total: totalCount,
+               new: newCount,
+               read: readCount,
+               inProgress: inProgressCount,
+               completed: completedCount
+           }
+       });
+   } catch(error) {
+       res.status(500).json({ 
+           success: false, 
+           message: "Server Error", 
+           error: error.message
+       });
+   }
+}

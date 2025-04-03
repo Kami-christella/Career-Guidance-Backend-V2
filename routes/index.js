@@ -12,6 +12,7 @@ router.get('/count',authMiddleware, userController.getUserCount);
 router.get('/', authMiddleware, userController.getAllUsers);
 
 router.post('/contacts/createContact', contactController.createContact);
+router.get('/contacts/getContactCount', contactController.getContactsCount);
 
 // Assessment routes (protected with auth middleware)
 router.post('/assessments', authMiddleware, assessmentController.submitAssessment);
