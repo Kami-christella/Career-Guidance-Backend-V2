@@ -101,3 +101,16 @@ exports.getAssessmentByUserId = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
+exports.getAssessmentCount = async (req, res) => {
+  try {
+    // Count all assessments in the database
+    const count = await Assessment.countDocuments();
+    
+    // Return the count as a JSON response
+    res.json({ count });
+  } catch (err) {
+    console.error('Error counting assessments:', err.message);
+    res.status(500).send('Server error');
+  }
+};
