@@ -20,9 +20,21 @@ router.get('/assessments', authMiddleware, assessmentController.getUserAssessmen
 router.get('/assessments/:id', authMiddleware, assessmentController.getAssessmentById);
 router.get('/assessments/user/:userId', authMiddleware, assessmentController.getAssessmentByUserId);
 router.get('/assessments/admin/count', authMiddleware, assessmentController.getAssessmentCount);
+
+
+
 // Career routes
 router.get('/careers', careerController.getAllCareers);
 router.get('/careers/:id', careerController.getCareerById);
 router.post('/careers/recommend', authMiddleware, careerController.recommendCareers);
+
+router.get('/count/software-developer', authMiddleware, careerController.countSoftwareDeveloperRecommendations);
+router.get('/count/teacher', authMiddleware, careerController.countTeacherRecommendations);
+router.get('/count/data-scientist', authMiddleware, careerController.countDataScientistRecommendations);
+router.get('/count/graphic-designer', authMiddleware, careerController.countGraphicDesignerRecommendations);
+router.get('/count/project-manager', authMiddleware, careerController.countProjectManagerRecommendations);
+
+// Route to get all counts at once
+router.get('/count/all', authMiddleware, careerController.getAllCareerCounts);
 
 module.exports = router;
