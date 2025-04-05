@@ -15,9 +15,10 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-//   userRole:{
-//      type:Strin
-//   },
+  userRole:{
+     type:String,
+     default:'user'
+  },
   assessments: [{
     type: Schema.Types.ObjectId,
     ref: 'Assessment'
