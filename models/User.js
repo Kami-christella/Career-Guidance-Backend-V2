@@ -17,6 +17,7 @@ const UserSchema = new Schema({
   },
   userRole:{
      type:String,
+     enum: ['user', 'admin'],
      default:'user'
   },
   assessments: [{
